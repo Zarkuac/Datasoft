@@ -7,7 +7,27 @@ const mainNav = document.querySelector('.main-nav');
 
 if (mobileMenuBtn && mainNav) {
     mobileMenuBtn.addEventListener('click', () => {
-        mainNav.style.display = mainNav.style.display === 'flex' ? 'none' : 'flex';
+        mainNav.classList.toggle('active');
+        
+        // Update icon to show open/closed state
+        const icon = mobileMenuBtn.querySelector('i');
+        if (mainNav.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!mobileMenuBtn.contains(e.target) && !mainNav.contains(e.target)) {
+            mainNav.classList.remove('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
     });
 }
 
@@ -28,7 +48,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             
             // Close mobile menu if open
             if (window.innerWidth < 768 && mainNav) {
-                mainNav.style.display = 'none';
+                mainNav.classList.remove('active');
+                // Reset the burger icon
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
         }
     });
