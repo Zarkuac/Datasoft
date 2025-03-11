@@ -101,3 +101,55 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add scroll event listener
     window.addEventListener('scroll', animateOnScroll);
 });
+
+// Modal functionality
+const modal = document.getElementById('contact-modal');
+const contactBtn = document.querySelector('a[href="#contact-form"]');
+const closeModal = document.querySelector('.close-modal');
+const contactForm = document.getElementById('contact-form');
+
+// Open modal
+contactBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+});
+
+// Close modal
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Handle form submission
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        company: document.getElementById('company').value
+    };
+    
+    // Here you would typically send the data to your server
+    console.log('Form submitted:', formData);
+    
+    // Show success message (you can customize this)
+    alert('Thank you for your message. We will contact you soon!');
+    
+    // Reset form and close modal
+    contactForm.reset();
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
