@@ -28,7 +28,7 @@ This project delivers an elegant and user-friendly landing page for Datasoft, fo
 1. Clone the repository:
 
     ```bash
-    git clone <your-repo-url>
+    git clone https://github.com/Zarkuac/Datasoft.git
     ```
 
 2. Navigate to the project folder:
