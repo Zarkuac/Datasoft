@@ -6,7 +6,13 @@ const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const mainNav = document.querySelector('.main-nav');
 
 if (mobileMenuBtn && mainNav) {
-    mobileMenuBtn.addEventListener('click', () => {
+    // Stop propagation on the menu itself to prevent immediate closing
+    mainNav.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent document click from immediately closing menu
         mainNav.classList.toggle('active');
         
         // Update icon to show open/closed state
@@ -21,8 +27,8 @@ if (mobileMenuBtn && mainNav) {
     });
     
     // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!mobileMenuBtn.contains(e.target) && !mainNav.contains(e.target)) {
+    document.addEventListener('click', () => {
+        if (mainNav.classList.contains('active')) {
             mainNav.classList.remove('active');
             const icon = mobileMenuBtn.querySelector('i');
             icon.classList.remove('fa-times');
